@@ -1,27 +1,28 @@
-http:
   routers:
     dashboard:
       entryPoints:
-        - "https"
+        - "https" 
       rule: "Host(`traefik.kewar.org`)"
       middlewares:
         - default-headers
-        - https-redirectscheme
-      tls: {}
+        - https-redirectscheme 
+      tls: {} # Let's Encrypt will handle certificates
       service: dashboard
+
     proxmox-router:
       rule: "Host(`proxmox.kewar.org`)"
-      entryPoints: ["websecure"]
+      entryPoints: ["websecure"] # Use the HTTPS entry point
       tls:
-        certresolver: letsencrypt
+        certresolver: cloudflare # Or letsencrypt if you prefer
       service: proxmox-service
 
   services:
     dashboard:
       loadBalancer:
         servers:
-          - url: "http://192.168.86.51:8080"
+          - url: "http://192.168.86.51:8080" 
         passHostHeader: true
+
     proxmox-service:
       loadBalancer:
         servers:
@@ -49,12 +50,12 @@ http:
     default-whitelist:
       ipWhiteList:
         sourceRange:
-        - "10.0.0.0/8"
-        - "192.168.0.0/16"
-        - "172.16.0.0/12"
+          - "10.0.0.0/8"
+          - "192.168.0.0/16"
+          - "172.16.0.0/12"
 
-    secured:
+    secured: # Example of combining middlewares
       chain:
         middlewares:
-        - default-whitelist
-        - default-headers
+          - default-whitelist
+          - default-headers 
