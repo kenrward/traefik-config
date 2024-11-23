@@ -1,27 +1,32 @@
 http:
- #region routers
   routers:
     dashboard:
       entryPoints:
         - "https"
-      rule: "Host(`kewar.org`)"
+      rule: "Host(`traefik.kewar.org`)"
       middlewares:
         - default-headers
         - https-redirectscheme
       tls: {}
       service: dashboard
- #endregion
+    proxmox-router:
+      rule: "Host(`proxmox.kewar.org`)"
+      entryPoints: ["websecure"]
+      tls:
+        certresolver: letsencrypt
+      service: proxmox-service
 
-  #region services
   services:
     dashboard:
       loadBalancer:
         servers:
           - url: "http://192.168.86.51:8080"
         passHostHeader: true
-  #endregion
+    proxmox-service:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.86.21:8006" 
 
-  #region middlewares
   middlewares:
     https-redirectscheme:
       redirectScheme:
@@ -53,4 +58,3 @@ http:
         middlewares:
         - default-whitelist
         - default-headers
-  #endregion
