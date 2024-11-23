@@ -14,6 +14,23 @@ services:
     networks:
      - proxy
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"  # Enable Traefik on this service
+      - "traefik.http.routers.traefik.entrypoints=http"  # Define HTTP entrypoint
+      - "traefik.http.routers.traefik.rule=Host(`traefik.kewar.org`)"  # Host rule for routing
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=traefik:$2y$$05$$fkKKsDM0LEQAG6nPuk7dxeJElSkGJxCeuCsZgwoQWqPzyZdRkfYeK"  # Basic auth for security traefik for username/pass
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"  # Redirect HTTP to HTTPS
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"  # Set forwarded headers for SSL
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"  # Apply HTTPS redirect middleware
+      - "traefik.http.routers.traefik-secure.entrypoints=https"  # Secure entrypoint for HTTPS
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.kewar.org`)"  # Host rule for secure routing
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"  # Apply authentication middleware
+      - "traefik.http.routers.traefik-secure.tls=true"  # Enable TLS for secure connection
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"  # Use Cloudflare for SSL certificate resolution
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=kewar.org"  # Main domain for SSL certificate
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.kewar.org"  # SANs for SSL certificate
+      - "traefik.http.routers.traefik-secure.service=api@internal"  # Internal service for Traefik API
+
 networks:
   proxy:
     external: true
