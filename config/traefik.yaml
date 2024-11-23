@@ -14,7 +14,7 @@ entryPoints:
 certificatesResolvers:
   cloudflare:
     acme:
-      email: $[CLOUDFLARE_ACCOUNT_EMAIL]
+      email: ${CLOUDFLARE_ACCOUNT_EMAIL} 
       storage: acme.json
       dnsChallenge:
         provider: cloudflare

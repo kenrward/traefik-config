@@ -10,8 +10,8 @@ services:
       - "443:443"
       - "8080:8080"
     environment:
-      - CF_API_EMAIL=$[CLOUDFLARE_ACCOUNT_EMAIL]  # Cloudflare account email for API access
-      - CF_DNS_API_TOKEN=$[CLOUDFLARE_API_TOKEN]  # Cloudflare DNS API token
+      - CF_API_EMAIL=${CLOUDFLARE_ACCOUNT_EMAIL} # Use environment variables
+      - CF_DNS_API_TOKEN=${CLOUDFLARE_API_TOKEN}
     volumes:
        - /etc/localtime:/etc/localtime:ro  # Sync time with the host
        - /var/run/docker.sock:/var/run/docker.sock:ro  # Allows Traefik to interact with Docker
