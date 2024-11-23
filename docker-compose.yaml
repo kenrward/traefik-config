@@ -1,0 +1,19 @@
+---
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik-config
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/traefik.yaml:/etc/traefik/traefik.yaml:ro
+    networks:
+     - proxy
+    restart: unless-stopped
+networks:
+  proxy:
+    external: true
