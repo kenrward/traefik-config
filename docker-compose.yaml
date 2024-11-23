@@ -12,8 +12,12 @@ services:
       - CF_API_EMAIL=$[CLOUDFLARE_ACCOUNT_EMAIL]  # Cloudflare account email for API access
       - CF_DNS_API_TOKEN=$[CLOUDFLARE_API_TOKEN]  # Cloudflare DNS API token
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./config/traefik.yaml:/etc/traefik/traefik.yaml:ro
+       - /etc/localtime:/etc/localtime:ro  # Sync time with the host
+       - /var/run/docker.sock:/var/run/docker.sock:ro  # Allows Traefik to interact with Docker
+       - /root/traefik/config/traefik.yaml:/traefik.yaml:ro  # Traefik configuration file
+       - /root/traefik/config/acme.json:/acme.json  # SSL certificate file
+       - /root/traefik/config/config.yaml:/config.yaml:ro  # Additional configuration file
+       - /root/traefik/config/logs:/var/log/traefik  # Log directory
     networks:
      - proxy
     restart: unless-stopped
