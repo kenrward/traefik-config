@@ -7,9 +7,21 @@ http:
       service: api@internal
       tls:
         certResolver: letsencrypt
+    proxmox-router:
+      rule: "Host(`proxmox.kewar.org`)"  
+      entryPoints:
+        - websecure
+      service: proxmox-service
+      tls:
+        certResolver: letsencrypt
 
   middlewares:
     https-redirect:
       redirectScheme:
         scheme: https
         permanent: true
+  services:
+    proxmox-service:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.96.21:8006"
