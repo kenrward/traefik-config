@@ -38,11 +38,6 @@ services:
       - "traefik.http.routers.traefik-secure.tls.domains[0].main=kewar.org"  # Main domain for SSL certificate
       - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.kewar.org"  # SANs for SSL certificate
       - "traefik.http.routers.traefik-secure.service=api@internal"  # Internal service for Traefik API
-  whoami:
-    # A container that exposes an API to show its IP address
-    image: traefik/whoami
-    labels:
-      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
 
 networks:
   proxy:
