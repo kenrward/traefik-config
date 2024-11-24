@@ -11,15 +11,14 @@ entryPoints:
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: "kenrward@gmail.com"      # Replace with your email
+      email: "${CLOUDFLARE_EMAIL}"
       storage: "acme.json"
       dnsChallenge:
         provider: cloudflare
-        delayBeforeCheck: "30"
 
 log:
   level: DEBUG
 
 api:
   dashboard: true
-  insecure: true  # Disable this in production
+  insecure: true
