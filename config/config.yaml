@@ -1,21 +1,12 @@
+http:
   routers:
     dashboard:
       entryPoints:
-        - "https" 
-      rule: "Host(`traefik.kewar.org`)"
-      # middlewares:
-      #   - default-headers
-        # - https-redirectscheme 
-      tls: 
-        certresolver: cloudflare # Or letsencrypt if you prefer
+        - "https"
+      rule: "Host(`traefik.kewar.org`) && PathPrefix(`/dashboard`)" 
+      tls:
+        certresolver: cloudflare 
       service: dashboard
-
-    # proxmox-router:
-    #   rule: "Host(`proxmox.kewar.org`)"
-    #   entryPoints: ["websecure"] # Use the HTTPS entry point
-    #   tls:
-    #     certresolver: cloudflare # Or letsencrypt if you prefer
-    #   service: proxmox-service
 
   services:
     dashboard:
@@ -24,17 +15,7 @@
           - url: "http://192.168.86.51:8080" 
         passHostHeader: true
 
-    # proxmox-service:
-    #   loadBalancer:
-    #     servers:
-    #       - url: "https://192.168.86.21:8006" 
-
-  # middlewares:
-  #   https-redirectscheme:
-  #     redirectScheme:
-  #       scheme: https
-  #       permanent: true
-
+  middlewares:
     default-headers:
       headers:
         frameDeny: true
@@ -45,18 +26,3 @@
         stsPreload: true
         stsSeconds: 15552000
         customFrameOptionsValue: SAMEORIGIN
-        # customRequestHeaders:
-        #   X-Forwarded-Proto: https
-
-    # default-whitelist:
-    #   ipWhiteList:
-    #     sourceRange:
-    #       - "10.0.0.0/8"
-    #       - "192.168.0.0/16"
-    #       - "172.16.0.0/12"
-
-    # secured: # Example of combining middlewares
-    #   chain:
-    #     middlewares:
-    #       - default-whitelist
-    #       - default-headers 
