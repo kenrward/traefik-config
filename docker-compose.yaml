@@ -5,7 +5,7 @@ services:
     image: traefik:latest
     container_name: traefik
     environment:
-      CF_API_EMAIL: ${CLOUDFLARE_ACCOUNT_EMAIL}
+      CF_API_EMAIL: kenrward@gmail.com
       CF_DNS_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
     command:
       - --api.insecure=true # Disable this in production!
@@ -14,7 +14,7 @@ services:
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.cloudflare.acme.dnschallenge=true
       - --certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare
-      - --certificatesresolvers.cloudflare.acme.email=${CLOUDFLARE_ACCOUNT_EMAIL}
+      - --certificatesresolvers.cloudflare.acme.email=kenrward@gmail.com
       - --certificatesresolvers.cloudflare.acme.storage=/acme.json
     ports:
       - "80:80"
