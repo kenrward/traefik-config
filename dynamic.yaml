@@ -31,7 +31,7 @@ http:
     proxmox-service:
       loadBalancer:
         servers:
-          - url: "http://pve.int.kewar.org:8006"
+          - url: "https://pve.int.kewar.org:8006"
     octopi-service:
       loadBalancer:
         servers:
