@@ -15,7 +15,7 @@ http:
       tls:
         certResolver: letsencrypt
     octopi-router:
-      rule: "Host(`ocyopi.kewar.org`)"  
+      rule: "Host(`octopi.kewar.org`)"  
       entryPoints:
         - websecure
       service: octopi-service
