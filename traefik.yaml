@@ -20,5 +20,5 @@ certificatesResolvers:
     acme:
       dnsChallenge:
         provider: cloudflare
-      email: "${CLOUDFLARE_EMAIL}"
+      email: "${CF_API_EMAIL}"
       storage: "acme.json"
