@@ -17,5 +17,5 @@ entryPoints:
 
 providers:
   file:
-    filename: "~/traefik/dynamic_config.yml"
+    filename: "~/traefik-config/dynamic_config.yml"
     watch: true
