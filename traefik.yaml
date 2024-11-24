@@ -3,14 +3,18 @@ global:
   sendAnonymousUsage: false
 
 log:
-  level: DEBUG # Change to DEBUG for more verbose logging
+  level: DEBUG
 
 api:
   dashboard: true
-  insecure: true # Disable this in production!
+  insecure: true
 
 entryPoints:
   web:
-    address: :80
+    address: ":80"
   websecure:
-    address: :443
+    address: ":443"
+
+providers:
+  file:
+    filename: dynamic.yml
