@@ -15,22 +15,7 @@ entryPoints:
   websecure:
     address: ":443"
 
-http:
-  routers:
-    traefik-dashboard:
-      rule: "Host(`traefik.kewar.org`)"
-      entryPoints:
-        - websecure
-      service: api@internal
-      tls:
-        certResolver: letsencrypt
-
-certificatesResolvers:
-  letsencrypt:
-    acme:
-      email: "kenrward@gmail.com"
-      storage: "acme.json"
-      dnsChallenge:
-        provider: cloudflare
-        delayBeforeCheck: 30
-
+providers:
+  file:
+    filename: "~/traefik/dynamic_config.yml"
+    watch: true
