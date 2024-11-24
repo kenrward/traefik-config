@@ -25,5 +25,3 @@ http:
       loadBalancer:
         servers:
           - url: "https://192.168.86.21:8006"
-        tls:
-          insecureSkipVerify: true
