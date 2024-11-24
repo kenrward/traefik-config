@@ -1,44 +1,24 @@
----
+version: "3.9"
+
 services:
   traefik:
-    image: traefik:latest
-    stdin_open: true # docker run -i
-    container_name: traefik-config
-    command: --api.insecure=true --providers.docker
+    image: traefik:latest # Or a specific version
+    container_name: traefik
+    command: 
+      - --api.insecure=true # Disable this in production!
+      - --providers.docker
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
-    #environment:
-    #  - CF_API_EMAIL=${CLOUDFLARE_ACCOUNT_EMAIL} # Use environment variables
-    #  - CF_DNS_API_TOKEN=${CLOUDFLARE_API_TOKEN}
+      - "8080:8080" # For the Traefik API/dashboard
     volumes:
-    #   - /etc/localtime:/etc/localtime:ro  # Sync time with the host
-       - /var/run/docker.sock:/var/run/docker.sock:ro  # Allows Traefik to interact with Docker
-    #   - /root/traefik-config/config/traefik.yaml:/traefik.yaml:ro  # Traefik configuration file
-    #   - /root/traefik-config/config/acme.json:/acme.json  # SSL certificate file
-    #   - /root/traefik-config/config/config.yaml:/config.yaml:ro  # Additional configuration file
-    #   - /root/traefik-config/config/logs:/var/log/traefik  # Log directory
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yaml:/traefik.yaml:ro
+      - ./config.yaml:/config.yaml:ro
     networks:
-     - proxy
-    restart: unless-stopped
-    # labels:
-    #   - "traefik.enable=true"  # Enable Traefik on this service
-    #   - "traefik.http.routers.traefik.entrypoints=http"  # Define HTTP entrypoint
-    #   - "traefik.http.routers.traefik.rule=Host(`traefik.kewar.org`)"  # Host rule for routing
-    #   - "traefik.http.middlewares.traefik-auth.basicauth.users=traefik:$2y$$05$$fkKKsDM0LEQAG6nPuk7dxeJElSkGJxCeuCsZgwoQWqPzyZdRkfYeK"  # Basic auth for security traefik for username/pass
-    #   - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"  # Redirect HTTP to HTTPS
-    #   - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"  # Set forwarded headers for SSL
-    #   - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"  # Apply HTTPS redirect middleware
-    #   - "traefik.http.routers.traefik-secure.entrypoints=https"  # Secure entrypoint for HTTPS
-    #   - "traefik.http.routers.traefik-secure.rule=Host(`traefik.kewar.org`)"  # Host rule for secure routing
-    #   - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"  # Apply authentication middleware
-    #   - "traefik.http.routers.traefik-secure.tls=true"  # Enable TLS for secure connection
-    #   - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"  # Use Cloudflare for SSL certificate resolution
-    #   - "traefik.http.routers.traefik-secure.tls.domains[0].main=kewar.org"  # Main domain for SSL certificate
-    #   - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.kewar.org"  # SANs for SSL certificate
-    #   - "traefik.http.routers.traefik-secure.service=api@internal"  # Internal service for Traefik API
+      - web
 
 networks:
-  proxy:
-    external: true
+  web:

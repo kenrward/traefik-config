@@ -1,28 +1,14 @@
 http:
   routers:
-    dashboard:
+    traefik-dashboard:
+      rule: "Host(`traefik.yourdomain.com`)" # Replace with your domain
       entryPoints:
-        - "https"
-      rule: "Host(`traefik.kewar.org`) && PathPrefix(`/dashboard`)" 
-      tls:
-        certresolver: cloudflare 
-      service: dashboard
-
-  services:
-    dashboard:
-      loadBalancer:
-        servers:
-          - url: "http://192.168.86.51:8080" 
-        passHostHeader: true
+        - websecure
+      service: api@internal
+      tls: {}
 
   middlewares:
-    default-headers:
-      headers:
-        frameDeny: true
-        browserXssFilter: true
-        contentTypeNosniff: true
-        forceSTSHeader: true
-        stsIncludeSubdomains: true
-        stsPreload: true
-        stsSeconds: 15552000
-        customFrameOptionsValue: SAMEORIGIN
+    https-redirect:
+      redirectScheme:
+        scheme: https
+        permanent: true
