@@ -1,7 +1,7 @@
 http:
   routers:
     traefik-dashboard:
-      rule: "Host(`traefik.yourdomain.com`)" # Replace with your domain
+      rule: "Host(`traefik.kewar.org`)" # Replace with your domain
       entryPoints:
         - websecure
       service: api@internal
