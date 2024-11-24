@@ -16,7 +16,7 @@ services:
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.cloudflare.acme.dnschallenge=true
       - --certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare
-      - --certificatesresolvers.cloudflare.acme.email="${CF_API_EMAIL}"
+      - --certificatesresolvers.cloudflare.acme.email="kenrward@gmail.com"
       - --certificatesresolvers.cloudflare.acme.storage=/acme.json
     ports:
       - "80:80"
