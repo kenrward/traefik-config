@@ -16,7 +16,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.yaml:/traefik.yaml:ro
       - ./dynamic.yaml:/dynamic.yaml:ro
-      - ./acme.json:acme.json
+      - /root/traefik-config/acme.json:/acme.json
+
     networks:
       - web
 
