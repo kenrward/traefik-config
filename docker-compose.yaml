@@ -7,6 +7,8 @@ services:
     environment:
       CF_API_EMAIL: "${CLOUDFLARE_EMAIL}"
       CF_DNS_API_TOKEN: ${C}
+    env_file:
+      - .env
     command:
       - --api.insecure=true # Disable this in production!
       - --providers.docker
