@@ -22,3 +22,8 @@ log:
 api:
   dashboard: true
   insecure: true
+
+providers:
+  file:
+    filename: "dynamic.yaml"
+    watch: true  # Automatically reload changes in dynamic.yaml
