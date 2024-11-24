@@ -11,7 +11,7 @@ entryPoints:
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: "${CLOUDFLARE_EMAIL}"
+      email: "kenrward@gmail.com"
       storage: "acme.json"
       dnsChallenge:
         provider: cloudflare
