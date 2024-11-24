@@ -15,10 +15,6 @@ entryPoints:
   websecure:
     address: ":443"
 
-providers:
-  file:
-    filename: dynamic.yml
-
 certificatesResolvers:
   letsencrypt:
     acme:
