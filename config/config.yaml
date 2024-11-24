@@ -6,7 +6,8 @@
       middlewares:
         - default-headers
         - https-redirectscheme 
-      tls: {} # Let's Encrypt will handle certificates
+      tls: 
+        certresolver: cloudflare # Or letsencrypt if you prefer
       service: dashboard
 
     proxmox-router:
