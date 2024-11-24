@@ -5,7 +5,8 @@ http:
       entryPoints:
         - websecure
       service: api@internal
-      tls: {}
+      tls: 
+        certResolver: letsencrypt
 
   middlewares:
     https-redirect:
