@@ -1,11 +1,11 @@
 http:
   routers:
     traefik-dashboard:
-      rule: "Host(`traefik.kewar.org`)" # Replace with your domain
+      rule: "Host(`traefik.kewar.org`)"
       entryPoints:
         - websecure
       service: api@internal
-      tls: 
+      tls:
         certResolver: letsencrypt
 
   middlewares:

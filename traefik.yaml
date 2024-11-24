@@ -18,7 +18,8 @@ entryPoints:
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: "${CF_API_EMAIL}" # Confirm this matches your env variable
+      email: "kenrward@gmail.com"
       storage: "acme.json"
       dnsChallenge:
         provider: cloudflare
+        delayBeforeCheck: "30"  # Adjust for DNS propagation delay
