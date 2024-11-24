@@ -5,8 +5,8 @@ services:
     image: traefik:latest
     container_name: traefik
     environment:
-      CF_API_EMAIL: "${CF_API_EMAIL}"
-      CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN}
+      - CLOUDFLARE_EMAIL=kenrward@gmail.com
+      - CLOUDFLARE_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     env_file:
       - .env
     command:
