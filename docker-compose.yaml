@@ -2,13 +2,20 @@ version: "3.9"
 
 services:
   traefik:
-    image: traefik:latest # Or a specific version
+    image: traefik:latest
     container_name: traefik
-    command: 
+    environment:
+      CF_API_EMAIL: ${CLOUDFLARE_ACCOUNT_EMAIL}
+      CF_DNS_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
+    command:
       - --api.insecure=true # Disable this in production!
       - --providers.docker
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.cloudflare.acme.dnschallenge=true
+      - --certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare
+      - --certificatesresolvers.cloudflare.acme.email=${CLOUDFLARE_ACCOUNT_EMAIL}
+      - --certificatesresolvers.cloudflare.acme.storage=/acme.json
     ports:
       - "80:80"
       - "443:443"
@@ -17,6 +24,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.yaml:/traefik.yaml:ro
       - ./config.yaml:/config.yaml:ro
+      - ./acme.json:/acme.json
     networks:
       - web
 

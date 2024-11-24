@@ -18,3 +18,11 @@ entryPoints:
 providers:
   file:
     filename: dynamic.yml
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: "${CLOUDFLARE_ACCOUNT_EMAIL}"
+      storage: acme.json
+      httpChallenge:
+        entryPoint: web
