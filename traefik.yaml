@@ -18,7 +18,7 @@ entryPoints:
 certificatesResolvers:
   letsencrypt:
     acme:
+      email: "${CF_API_EMAIL}" # Confirm this matches your env variable
+      storage: "acme.json"
       dnsChallenge:
         provider: cloudflare
-      email: "${CF_API_EMAIL}"
-      storage: "acme.json"
