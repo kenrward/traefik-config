@@ -38,7 +38,7 @@ http:
         certResolver: letsencrypt
 
   middlewares:
-    https-redirect:
+    redirect-to-https:
       redirectScheme:
         scheme: https
         permanent: true
