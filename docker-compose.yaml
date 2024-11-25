@@ -47,9 +47,6 @@ services:
       - wireguard
     cap_add:
       - NET_ADMIN
-    # Use the network of the 'wireguard' service
-    # This enables to show active clients in the status page
-    network_mode: service:wireguard
     environment:
       - SENDGRID_API_KEY
       - EMAIL_FROM_ADDRESS
