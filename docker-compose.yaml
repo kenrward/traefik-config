@@ -65,7 +65,7 @@ services:
       - ./db:/app/db
       - ./config:/etc/wireguard
     labels:
-      - "traefik.http.routers.wg.rule=Host(`wg.kewar.org`)"
+      - "traefik.http.routers.wireguard-ui.rule=Host(`wg.kewar.org`)"
 
 networks:
   web:
