@@ -3,21 +3,27 @@ http:
     traefik-dashboard:
       rule: "Host(`traefik.kewar.org`)" 
       entryPoints:
-        - websecure
+        - web
+      middlewares:
+        - redirect-to-https
       service: api@internal
       tls:
         certResolver: letsencrypt
     proxmox-router:
       rule: "Host(`proxmox.kewar.org`)"  
       entryPoints:
-        - websecure
+        - web
+      middlewares:
+        - redirect-to-https
       service: proxmox-service
       tls:
         certResolver: letsencrypt
     octopi-router:
       rule: "Host(`octopi.kewar.org`)"  
       entryPoints:
-        - websecure
+        - web
+      middlewares:
+        - redirect-to-https
       service: octopi-service
       tls:
         certResolver: letsencrypt
@@ -25,7 +31,9 @@ http:
       rule: "Host(`wg.kewar.org`)"
       service: wireguard-ui
       entryPoints:
-        - websecure
+        - web
+      middlewares:
+        - redirect-to-https
       tls:
         certResolver: letsencrypt
 
