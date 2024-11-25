@@ -50,8 +50,8 @@ http:
     octopi-service:
       loadBalancer:
         servers:
-          - url: "http://octopi.int.kewar.org:80"
+          - url: "https://octopi.int.kewar.org"
     wireguard-ui:
       loadBalancer:
         servers:
-          - url: "http://wireguard-ui:5000"
+          - url: "https://wireguard-ui:5000"
