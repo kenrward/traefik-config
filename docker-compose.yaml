@@ -20,6 +20,7 @@ services:
 
     networks:
       - web
+      - wireguard
 
   wireguard:
     image: linuxserver/wireguard:latest
@@ -34,6 +35,9 @@ services:
       # Port of the WireGuard VPN server
       - "51820:51820/udp"
     restart: unless-stopped
+    networks:
+      - web
+      - wireguard
 
   # WireGuard-UI service
   wireguard-ui:
@@ -65,8 +69,18 @@ services:
       - ./db:/app/db
       - ./config:/etc/wireguard
     labels:
+      - "traefik.enable=true"
       - "traefik.http.routers.wireguard-ui.rule=Host(`wg.kewar.org`)"
+      - "traefik.http.routers.wireguard-ui.entrypoints=websecure"
+      - "traefik.http.routers.wireguard-ui.tls=true"
+      - "traefik.http.services.wireguard-ui.loadbalancer.server.port=5000"
+    networks:
+      - wireguard
+      - web
 
 networks:
   web:
+    external: true
+  wireguard:
+    driver: bridge
 
