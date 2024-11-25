@@ -35,4 +35,4 @@ http:
     octopi-service:
       loadBalancer:
         servers:
-          - url: "https://octopi.int.kewar.org:80"
+          - url: "http://octopi.int.kewar.org:80"
