@@ -21,13 +21,13 @@ http:
       service: octopi-service
       tls:
         certResolver: letsencrypt
-    wireguard-ui:
-      rule: "Host(`wg.kewar.org`)"
-      service: wireguard-ui
-      entryPoints:
-        - websecure
-      tls:
-        certResolver: letsencrypt
+    # wireguard-ui:
+    #   rule: "Host(`wg.kewar.org`)"
+    #   service: wireguard-ui
+    #   entryPoints:
+    #     - websecure
+      # tls:
+      #   certResolver: letsencrypt
 
   middlewares:
     https-redirect:
@@ -43,7 +43,7 @@ http:
       loadBalancer:
         servers:
           - url: "http://octopi.int.kewar.org:80"
-    wireguard-ui:
-      loadBalancer:
-        servers:
-          - url: "http://wireguard-ui:5000"
+    # wireguard-ui:
+    #   loadBalancer:
+    #     servers:
+    #       - url: "http://wireguard-ui:5000"
