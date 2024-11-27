@@ -74,6 +74,32 @@ services:
     networks:
       - wireguard
       - web
+  pihole:
+      container_name: pihole
+      image: pihole/pihole:latest
+      # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
+      ports:
+        - "53:53/tcp"
+        - "53:53/udp"
+        - "80:80/tcp"
+      environment:
+        TZ: 'America/Chicago'
+        # WEBPASSWORD: 'set a secure password here or it will be random'
+      # Volumes store your data between container upgrades
+      volumes:
+        - './etc-pihole:/etc/pihole'
+        - './etc-dnsmasq.d:/etc/dnsmasq.d'
+      #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.pihole.rule=Host(`pihole.kewar.org`)"
+        - "traefik.http.routers.pihole.entrypoints=web"
+        - "traefik.http.services.pihole.loadbalancer.server.port=80"
+      cap_add:
+        - NET_ADMIN # Required if you are using Pi-hole as your DHCP server, else not needed
+      restart: unless-stopped
+      networks:
+        - web
 
 networks:
   web:
