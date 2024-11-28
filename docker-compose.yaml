@@ -81,7 +81,7 @@ services:
       ports:
         - "53:53/tcp"
         - "53:53/udp"
-        - "8001:80/tcp"
+        - "8001:8001/tcp"
       environment:
         TZ: 'America/Chicago'
         # WEBPASSWORD: 'set a secure password here or it will be random'
@@ -94,7 +94,7 @@ services:
         - "traefik.enable=true"
         - "traefik.http.routers.pihole.rule=Host(`pihole.kewar.org`)"
         - "traefik.http.routers.pihole.entrypoints=web"
-        - "traefik.http.services.pihole.loadbalancer.server.port=80"
+        - "traefik.http.services.pihole.loadbalancer.server.port=8001"
       cap_add:
         - NET_ADMIN # Required if you are using Pi-hole as your DHCP server, else not needed
       restart: unless-stopped
