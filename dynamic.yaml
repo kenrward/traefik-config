@@ -57,4 +57,4 @@ http:
     pihole:
       loadBalancer:
         servers:
-          - url: "http://pihole:80"
+          - url: "http://pihole:8001"
