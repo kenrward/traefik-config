@@ -31,8 +31,7 @@ http:
     pihole-router:
       rule: "Host(`pihole.kewar.org`)"  
       entryPoints:
-        web:
-         address: ":80"
+        - web
 
   middlewares:
     https-redirect:
