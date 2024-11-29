@@ -51,8 +51,8 @@ http:
     pihole-service:
       loadBalancer:
         servers:
-          - url: "https://pihole.int.kewar.org"
+          - url: "http://pihole.int.kewar.org"
     wireguard-ui:
       loadBalancer:
         servers:
-          - url: "http://wireguard-ui:5000"
+          - url: "https://wireguard-ui:5000"
