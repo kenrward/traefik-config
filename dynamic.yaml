@@ -31,7 +31,9 @@ http:
     pihole-router:
       rule: "Host(`pihole.kewar.org`)"  
       entryPoints:
-        - web
+        - websecure
+      tls:
+        certResolver: letsencrypt
 
   middlewares:
     https-redirect:
