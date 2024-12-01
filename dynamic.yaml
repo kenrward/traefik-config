@@ -50,7 +50,7 @@ http:
     pihole-service:
       loadBalancer:
         servers:
-          - url: "http://pihole.int.kewar.org:80"
+          - url: "http://pihole.int.kewar.org:80/admin/login.php"
     wireguard-ui:
       loadBalancer:
         servers:
