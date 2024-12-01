@@ -29,7 +29,7 @@ http:
       tls:
         certResolver: letsencrypt
     pihole-ui:
-      rule: "Host(`pi.hole.kewar.org`)"  
+      rule: "Host(`pihole.kewar.org`)"  
       entryPoints:
         - websecure
       tls:
@@ -52,7 +52,7 @@ http:
     pihole-ui:
       loadBalancer:
         servers:
-          - url: "http://pihole-ui:8001"
+          - url: "http://pihole-ui:80"
     wireguard-ui:
       loadBalancer:
         servers:
