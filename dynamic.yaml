@@ -53,7 +53,7 @@ http:
     pihole-ui:
       loadBalancer:
         servers:
-          - url: "http://pihole-ui:80"
+          - url: "http://pihole-ui:8001"
     wireguard-ui:
       loadBalancer:
         servers:
