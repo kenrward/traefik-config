@@ -113,7 +113,7 @@ services:
     container_name: dozzle
     restart: unless-stopped
     ports:
-      - "8088:80"
+      - "8088:8080"
     environment:
       DOZZLE_LEVEL: info
       DOZZLE_TAILSIZE: 300
@@ -130,7 +130,7 @@ services:
       - "traefik.http.routers.dozzle.tls.certresolver=letsencrypt"
       - "traefik.http.routers.dozzle.tls.domains[0].main=dozzle.domain.tld"
       - "traefik.http.routers.dozzle.tls.domains[0].sans=dozzle.domain.tld"
-      - "traefik.http.services.dozzle.loadbalancer.server.port=80"
+      - "traefik.http.services.dozzle.loadbalancer.server.port=8080"
     networks:
       - web
       - wireguard
