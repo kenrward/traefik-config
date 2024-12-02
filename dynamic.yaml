@@ -35,6 +35,13 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
+    dozzledozzle-ui:
+      rule: "Host(`dozzle.kewar.org`)"  
+      service: dozzle-ui 
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
 
   middlewares:
     https-redirect:
@@ -58,3 +65,7 @@ http:
       loadBalancer:
         servers:
           - url: "https://wireguard-ui:5000"
+    dozzledozzle-ui:
+      loadBalancer:
+        servers:
+          - url: "http://dozzle.int.kewar.org:8088"

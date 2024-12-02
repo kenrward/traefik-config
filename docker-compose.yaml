@@ -107,6 +107,34 @@ services:
       - web
       - wireguard
 
+  # Dozzle - Real-time Docker Log Viewer
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    restart: unless-stopped
+    ports:
+      - "8088:80"
+    environment:
+      DOZZLE_LEVEL: info
+      DOZZLE_TAILSIZE: 300
+      DOZZLE_FILTER: "status=running"
+      # DOZZLE_FILTER: "label=log_me" # limits logs displayed to containers with this label
+      # DOCKER_HOST: tcp://socket-proxy:2375 # enable when using socket proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # disable when using so
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dozzle-ui.rule=Host(`dozzle.kewar.org`)"
+      - "traefik.http.routers.dozzle-ui.entrypoints=websecure"
+      - "traefik.http.routers.dozzle-ui.tls=true"
+      - "traefik.http.routers.dozzle.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.dozzle.tls.domains[0].main=dozzle.domain.tld"
+      - "traefik.http.routers.dozzle.tls.domains[0].sans=dozzle.domain.tld"
+      - "traefik.http.services.dozzle.loadbalancer.server.port=80"
+    networks:
+      - web
+      - wireguard
+
 networks:
   web:
     driver: bridge
