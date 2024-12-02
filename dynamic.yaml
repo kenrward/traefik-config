@@ -35,9 +35,16 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
-    dozzledozzle-ui:
+    dozzle-ui:
       rule: "Host(`dozzle.kewar.org`)"  
       service: dozzle-ui 
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+    filebrowser-ui:
+      rule: "Host(`filebrowser.kewar.org`)"  
+      service: filebrowser-ui 
       entryPoints:
         - websecure
       tls:
@@ -69,3 +76,7 @@ http:
       loadBalancer:
         servers:
           - url: "http://dozzle.int.kewar.org:8088"
+    filebrowser-ui:
+      loadBalancer:
+        servers:
+          - url: "http://filebrowser:8089"

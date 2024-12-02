@@ -128,9 +128,31 @@ services:
       - "traefik.http.routers.dozzle-ui.entrypoints=websecure"
       - "traefik.http.routers.dozzle-ui.tls=true"
       - "traefik.http.routers.dozzle.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.dozzle.tls.domains[0].main=dozzle.domain.tld"
-      - "traefik.http.routers.dozzle.tls.domains[0].sans=dozzle.domain.tld"
+      - "traefik.http.routers.dozzle.tls.domains[0].main=dozzle.kewar.org"
+      - "traefik.http.routers.dozzle.tls.domains[0].sans=dozzle.kewar.org"
       - "traefik.http.services.dozzle.loadbalancer.server.port=8080"
+    networks:
+      - web
+      - wireguard
+
+  # Dozzle - Real-time Docker Log Viewer
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    restart: unless-stopped
+    ports:
+      - "8089:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # disable when using so
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.filebrowser-ui.rule=Host(`filebrowser.kewar.org`)"
+      - "traefik.http.routers.filebrowser-ui.entrypoints=websecure"
+      - "traefik.http.routers.filebrowser-ui.tls=true"
+      - "traefik.http.routers.filebrowser.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.filebrowser.tls.domains[0].main=filebrowser.kewar.org"
+      - "traefik.http.routers.filebrowser.tls.domains[0].sans=filebrowser.kewar.org"
+      - "traefik.http.services.filebrowser.loadbalancer.server.port=80"
     networks:
       - web
       - wireguard
