@@ -79,4 +79,4 @@ http:
     filebrowser-ui:
       loadBalancer:
         servers:
-          - url: "http://filebrowser:8089"
+          - url: "http://192.168.86.51:8089"
