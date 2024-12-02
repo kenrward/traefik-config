@@ -58,6 +58,8 @@ http:
   services:
     proxmox-service:
       loadBalancer:
+        passHostHeader: true
+        serversTransport: "ignorecert"
         servers:
           - url: "https://192.168.86.21:8006"
     octopi-service:
@@ -80,3 +82,11 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.86.51:8089"
+
+# -----------------------------
+# SERVERSTRANSPORTS
+# -----------------------------
+  # This allows containers to run in HTTPS with self-signed certs behind Traefik:
+    serversTransports:
+      ignorecert:
+        insecureSkipVerify: true
