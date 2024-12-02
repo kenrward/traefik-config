@@ -59,15 +59,15 @@ http:
     proxmox-service:
       loadBalancer:
         servers:
-          - url: "https://pve.int.kewar.org:8006"
+          - url: "https://192.168.86.21:8006"
     octopi-service:
       loadBalancer:
         servers:
-          - url: "http://octopi.int.kewar.org:80"
+          - url: "http://192.168.86.35:80"
     pihole-ui:
       loadBalancer:
         servers:
-          - url: "http://pihole.int.kewar.org:8001/admin"
+          - url: "http://192.168.86.51:8001/admin"
     wireguard-ui:
       loadBalancer:
         servers:
@@ -75,7 +75,7 @@ http:
     dozzle-ui:
       loadBalancer:
         servers:
-          - url: "http://dozzle.int.kewar.org:8088"
+          - url: "http://192.168.86.51:8088"
     filebrowser-ui:
       loadBalancer:
         servers:
