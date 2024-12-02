@@ -65,7 +65,7 @@ http:
       loadBalancer:
         servers:
           - url: "https://wireguard-ui:5000"
-    dozzledozzle-ui:
+    dozzle-ui:
       loadBalancer:
         servers:
           - url: "http://dozzle.int.kewar.org:8088"
