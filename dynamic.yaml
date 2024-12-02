@@ -86,7 +86,7 @@ http:
 # -----------------------------
 # SERVERSTRANSPORTS
 # -----------------------------
-  # This allows containers to run in HTTPS with self-signed certs behind Traefik:
-    serversTransports:
-      ignorecert:
-        insecureSkipVerify: true
+# This allows containers to run in HTTPS with self-signed certs behind Traefik:
+  serversTransports:
+    ignorecert:
+      insecureSkipVerify: true
