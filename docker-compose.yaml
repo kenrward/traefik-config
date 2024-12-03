@@ -135,7 +135,7 @@ services:
       - web
       - wireguard
 
-  # Dozzle - Real-time Docker Log Viewer
+  # File Browser
   filebrowser:
     image: filebrowser/filebrowser:latest
     container_name: filebrowser
@@ -153,6 +153,26 @@ services:
       - "traefik.http.routers.filebrowser.tls.domains[0].main=filebrowser.kewar.org"
       - "traefik.http.routers.filebrowser.tls.domains[0].sans=filebrowser.kewar.org"
       - "traefik.http.services.filebrowser.loadbalancer.server.port=80"
+    networks:
+      - web
+      - wireguard
+
+  # Uptime Kuma
+  uptime:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.uptime-ui.rule=Host(`uptime.kewar.org`)"
+      - "traefik.http.routers.uptime-ui.entrypoints=websecure"
+      - "traefik.http.routers.uptime-ui.tls=true"
+      - "traefik.http.routers.uptime.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.uptime.tls.domains[0].main=uptime.kewar.org"
+      - "traefik.http.routers.uptime.tls.domains[0].sans=uptime.kewar.org"
+      - "traefik.http.services.uptime.loadbalancer.server.port=3001"
     networks:
       - web
       - wireguard

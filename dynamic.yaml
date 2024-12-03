@@ -49,6 +49,13 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
+    uptime-ui:
+      rule: "Host(`uptime.kewar.org`)"  
+      service: uptime-ui 
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
 
   middlewares:
     https-redirect:
@@ -82,6 +89,10 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.86.51:8089"
+    uptime-ui:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.86.51:3001"
 
 # -----------------------------
 # SERVERSTRANSPORTS
