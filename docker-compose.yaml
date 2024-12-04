@@ -165,7 +165,7 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - '.uptime/data:./data'
+      - './uptime/data:./data'
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.uptime-ui.rule=Host(`uptime.kewar.org`)"
