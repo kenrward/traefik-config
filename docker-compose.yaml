@@ -164,6 +164,8 @@ services:
     restart: unless-stopped
     ports:
       - "3001:3001"
+    volumes:
+      - './data:/uptime/data'
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.uptime-ui.rule=Host(`uptime.kewar.org`)"
