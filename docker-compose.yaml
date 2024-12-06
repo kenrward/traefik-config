@@ -126,7 +126,7 @@ services:
     image: homeassistant/home-assistant:0.113.2
     container_name: homeassistant
     networks:
-      - backend
+      - web
     volumes:
       - homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
