@@ -51,6 +51,13 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
+    homeassistant-ui:
+      rule: "Host(`homeassistant.kewar.org`)"  
+      service: uptime-ui 
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
 
   middlewares:
     https-redirect:
@@ -90,6 +97,10 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.86.51:3001"
+    homeassistant-ui:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.86.51:8123"
 
 # -----------------------------
 # SERVERSTRANSPORTS

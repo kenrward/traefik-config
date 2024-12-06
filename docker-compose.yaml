@@ -17,7 +17,6 @@ services:
       - ./traefik.yaml:/traefik.yaml:ro
       - ./dynamic.yaml:/dynamic.yaml:ro
       - /root/traefik-config/acme.json:/acme.json
-
     networks:
       - web
 
@@ -121,6 +120,30 @@ services:
       - "traefik.http.services.uptime.loadbalancer.server.port=3001"
     networks:
       - web
+
+  # Home Assistant
+  homeassistant:
+    image: homeassistant/home-assistant:0.113.2
+    container_name: homeassistant
+    networks:
+      - backend
+    volumes:
+      - homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homeassistant.entrypoints=websecure"
+      - "traefik.http.routers.homeassistant.rule=Host(`homeassistant.kewar.org`)"
+      - "traefik.http.routers.homeassistant.tls=true"
+      - "traefik.http.routers.homeassistant.tls.certresolver=letsencrypt"
+      - "traefik.http.services.homeassistant.loadbalancer.server.port=8123"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8123"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: always
 
 networks:
   web:
