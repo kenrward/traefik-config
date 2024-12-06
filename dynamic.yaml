@@ -13,7 +13,7 @@ http:
         - websecure
       service: proxmox-service
       middlewares:
-        - "home-lan"
+        - home-lan
       tls:
         certResolver: letsencrypt
     octopi-router:
@@ -64,6 +64,11 @@ http:
       redirectScheme:
         scheme: https
         permanent: true
+    home-lan:
+      ipAllowList:
+        sourceRange:
+          - "127.0.0.1/32"
+          - "192.168.86.0/24"
   services:
     proxmox-service:
       loadBalancer:
@@ -103,10 +108,3 @@ http:
   serversTransports:
     ignorecert:
       insecureSkipVerify: true
-tcp:
-  middlewares:
-    home-lan:
-      ipAllowList:
-        sourceRange:
-          - "127.0.0.1/32"
-          - "192.168.86.0/24"
