@@ -20,61 +20,7 @@ services:
 
     networks:
       - web
-      - wireguard
 
-  wireguard:
-    image: linuxserver/wireguard:latest
-    container_name: wireguard
-    cap_add:
-      - NET_ADMIN
-    volumes:
-      - ./wg/config:/config
-    ports:
-      # Port for WireGuard-UI
-      - "5000:5000"
-      # Port of the WireGuard VPN server
-      - "51820:51820/udp"
-    restart: unless-stopped
-    networks:
-      - web
-      - wireguard
-
-  # WireGuard-UI service
-  wireguard-ui:
-    image: ngoduykhanh/wireguard-ui:latest
-    container_name: wireguard-ui
-    depends_on:
-      - wireguard
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - SENDGRID_API_KEY
-      - EMAIL_FROM_ADDRESS
-      - EMAIL_FROM_NAME
-      - SESSION_SECRET
-      - WGUI_USERNAME=admin
-      - WGUI_PASSWORD=password
-      - WG_CONF_TEMPLATE
-      - WGUI_MANAGE_START=true
-      - WGUI_MANAGE_RESTART=true
-    restart: unless-stopped
-    logging:
-      driver: json-file
-      options:
-        max-size: 50m
-    volumes:
-      - ./wg/db:/app/db
-      - ./wg/config:/etc/wireguard
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.wireguard-ui.rule=Host(`wg.kewar.org`)"
-      - "traefik.http.routers.wireguard-ui.entrypoints=websecure"
-      - "traefik.http.routers.wireguard-ui.tls=true"
-      - "traefik.http.services.wireguard-ui.loadbalancer.server.port=5000"
-    networks:
-      - wireguard
-      - web
-    
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
@@ -105,7 +51,6 @@ services:
       - "traefik.http.services.pihole.loadbalancer.server.port=80"
     networks:
       - web
-      - wireguard
 
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
@@ -133,7 +78,7 @@ services:
       - "traefik.http.services.dozzle.loadbalancer.server.port=8080"
     networks:
       - web
-      - wireguard
+
 
   # File Browser
   filebrowser:
@@ -155,7 +100,6 @@ services:
       - "traefik.http.services.filebrowser.loadbalancer.server.port=80"
     networks:
       - web
-      - wireguard
 
   # Uptime Kuma
   uptime:
@@ -177,11 +121,8 @@ services:
       - "traefik.http.services.uptime.loadbalancer.server.port=3001"
     networks:
       - web
-      - wireguard
 
 networks:
   web:
-    driver: bridge
-  wireguard:
     driver: bridge
 

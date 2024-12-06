@@ -23,13 +23,6 @@ http:
       service: octopi-service
       tls:
         certResolver: letsencrypt
-    wireguard-ui:
-      rule: "Host(`wg.kewar.org`)"
-      service: wireguard-ui
-      entryPoints:
-        - websecure
-      tls:
-        certResolver: letsencrypt
     pihole-ui:
       rule: "Host(`pihole.kewar.org`)"  
       service: pihole-ui 
@@ -85,10 +78,6 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.86.51:8001/admin"
-    wireguard-ui:
-      loadBalancer:
-        servers:
-          - url: "http://192.168.86.51:5000"
     dozzle-ui:
       loadBalancer:
         servers:
