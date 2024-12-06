@@ -128,7 +128,7 @@ services:
     networks:
       - web
     volumes:
-      - homeassistant:/config
+      - ./homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
     labels:
       - "traefik.enable=true"
