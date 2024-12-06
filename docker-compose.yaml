@@ -63,8 +63,8 @@ services:
       options:
         max-size: 50m
     volumes:
-      - ./db:/app/db
-      - ./config:/etc/wireguard
+      - ./wg/db:/app/db
+      - ./wg/config:/etc/wireguard
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.wireguard-ui.rule=Host(`wg.kewar.org`)"
