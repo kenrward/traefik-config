@@ -28,7 +28,7 @@ services:
     cap_add:
       - NET_ADMIN
     volumes:
-      - ./config:/config
+      - ./wg/config:/config
     ports:
       # Port for WireGuard-UI
       - "5000:5000"
