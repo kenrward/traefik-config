@@ -88,7 +88,7 @@ http:
     wireguard-ui:
       loadBalancer:
         servers:
-          - url: "https://192.168.86.51:5000"
+          - url: "http://192.168.86.51:5000"
     dozzle-ui:
       loadBalancer:
         servers:
