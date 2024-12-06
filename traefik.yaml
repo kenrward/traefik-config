@@ -17,7 +17,7 @@ certificatesResolvers:
         provider: cloudflare
 
 log:
-  level: INFO
+  level: DEBUG
 
 api:
   dashboard: true
