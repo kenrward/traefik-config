@@ -53,7 +53,7 @@ http:
         certResolver: letsencrypt
     homeassistant-ui:
       rule: "Host(`homeassistant.kewar.org`)"  
-      service: uptime-ui 
+      service: homeassistant-ui 
       entryPoints:
         - websecure
       tls:
