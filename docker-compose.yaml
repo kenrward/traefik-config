@@ -122,30 +122,50 @@ services:
       - web
 
   # Home Assistant
-  homeassistant:
-    image: homeassistant/home-assistant:0.113.2
-    container_name: homeassistant
-    ports:
-      - "8123:8123"
-    networks:
-      - web
+  # homeassistant:
+  #   image: homeassistant/home-assistant:0.113.2
+  #   container_name: homeassistant
+  #   ports:
+  #     - "8123:8123"
+  #   networks:
+  #     - web
+  #   volumes:
+  #     - ./homeassistant:/config
+  #     - /etc/localtime:/etc/localtime:ro
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.homeassistant.entrypoints=websecure"
+  #     - "traefik.http.routers.homeassistant.rule=Host(`homeassistant.kewar.org`)"
+  #     - "traefik.http.routers.homeassistant.tls=true"
+  #     - "traefik.http.routers.homeassistant.tls.certresolver=letsencrypt"
+  #     - "traefik.http.services.homeassistant.loadbalancer.server.port=8123"
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:8123"]
+  #     interval: 2m
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 40s
+  #   restart: always
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: options_db
     volumes:
-      - ./homeassistant:/config
-      - /etc/localtime:/etc/localtime:ro
+      - ./postgres_data:/var/lib/postgresql/data  # Persist data
+    ports:
+      - "5432:5432" 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homeassistant.entrypoints=websecure"
-      - "traefik.http.routers.homeassistant.rule=Host(`homeassistant.kewar.org`)"
-      - "traefik.http.routers.homeassistant.tls=true"
-      - "traefik.http.routers.homeassistant.tls.certresolver=letsencrypt"
-      - "traefik.http.services.homeassistant.loadbalancer.server.port=8123"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8123"]
-      interval: 2m
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    restart: always
+      - "traefik.http.routers.postgres.entrypoints=websecure"
+      - "traefik.http.routers.postgres.rule=Host(`postgres.kewar.org`)"
+      - "traefik.http.routers.postgres.tls=true"
+      - "traefik.http.routers.postgres.tls.certresolver=letsencrypt"
+      - "traefik.http.services.postgres.loadbalancer.server.port=5432"
 
 networks:
   web:

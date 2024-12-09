@@ -51,13 +51,22 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
-    homeassistant-ui:
-      rule: "Host(`homeassistant.kewar.org`)"  
-      service: homeassistant-ui 
+    postgres:
+      rule: "Host(`postgres.kewar.org`)"  
+      service: postgres
+      middlewares:
+        - home-lan
       entryPoints:
         - websecure
       tls:
         certResolver: letsencrypt
+    # homeassistant-ui:
+    #   rule: "Host(`homeassistant.kewar.org`)"  
+    #   service: homeassistant-ui 
+    #   entryPoints:
+    #     - websecure
+    #   tls:
+    #     certResolver: letsencrypt
 
   middlewares:
     https-redirect:
@@ -97,10 +106,14 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.86.51:3001"
-    homeassistant-ui:
+    postgres:
       loadBalancer:
         servers:
-          - url: "http://192.168.86.51:8123"
+          - url: "http://192.168.86.51:5432"
+    # homeassistant-ui:
+    #   loadBalancer:
+    #     servers:
+    #       - url: "http://192.168.86.51:8123"
 
 # -----------------------------
 # SERVERSTRANSPORTS
