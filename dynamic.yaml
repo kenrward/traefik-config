@@ -51,6 +51,13 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
+    slack-app:
+      rule: "Host(`whichenv.kewar.org`)"
+      service: slack-app-service
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
     # homeassistant-ui:
     #   rule: "Host(`homeassistant.kewar.org`)"  
     #   service: homeassistant-ui 
@@ -97,6 +104,10 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.86.51:3001"
+   slack-app-service:
+      loadBalancer:
+        servers:
+          - url: 'http://192.168.86.47:5000'
     # homeassistant-ui:
     #   loadBalancer:
     #     servers:
