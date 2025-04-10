@@ -1,14 +1,14 @@
 http:
   routers:
     traefik-dashboard:
-      rule: "Host(`traefik.kewar.org`)" 
+      rule: "Host(`traefik.kewar.org`)"
       entryPoints:
         - websecure
       service: api@internal
       tls:
         certResolver: letsencrypt
     proxmox-router:
-      rule: "Host(`proxmox.kewar.org`)"  
+      rule: "Host(`proxmox.kewar.org`)"
       entryPoints:
         - websecure
       service: proxmox-service
@@ -17,54 +17,47 @@ http:
       tls:
         certResolver: letsencrypt
     octopi-router:
-      rule: "Host(`octopi.kewar.org`)"  
+      rule: "Host(`octopi.kewar.org`)"
       entryPoints:
         - websecure
       service: octopi-service
       tls:
         certResolver: letsencrypt
     pihole-ui:
-      rule: "Host(`pihole.kewar.org`)"  
-      service: pihole-ui 
+      rule: "Host(`pihole.kewar.org`)"
+      service: pihole-ui
       entryPoints:
         - websecure
       tls:
         certResolver: letsencrypt
     dozzle-ui:
-      rule: "Host(`dozzle.kewar.org`)"  
-      service: dozzle-ui 
+      rule: "Host(`dozzle.kewar.org`)"
+      service: dozzle-ui
       entryPoints:
         - websecure
       tls:
         certResolver: letsencrypt
     filebrowser-ui:
-      rule: "Host(`filebrowser.kewar.org`)"  
-      service: filebrowser-ui 
+      rule: "Host(`filebrowser.kewar.org`)"
+      service: filebrowser-ui
       entryPoints:
         - websecure
       tls:
         certResolver: letsencrypt
     uptime-ui:
-      rule: "Host(`uptime.kewar.org`)"  
-      service: uptime-ui 
+      rule: "Host(`uptime.kewar.org`)"
+      service: uptime-ui
       entryPoints:
         - websecure
       tls:
         certResolver: letsencrypt
-   slack-app:
-      rule: "Host(`whichenv.kewar.org`)"  
+    slack-app:
+      rule: "Host(`whichenv.kewar.org`)"
       service: slack-app-service
       entryPoints:
         - websecure
       tls:
         certResolver: letsencrypt
-    # homeassistant-ui:
-    #   rule: "Host(`homeassistant.kewar.org`)"  
-    #   service: homeassistant-ui 
-    #   entryPoints:
-    #     - websecure
-    #   tls:
-    #     certResolver: letsencrypt
 
   middlewares:
     https-redirect:
@@ -77,6 +70,7 @@ http:
           - "127.0.0.1/32"
           - "100.16.166.26/32"
           - "192.168.86.0/24"
+
   services:
     proxmox-service:
       loadBalancer:
@@ -104,19 +98,11 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.86.51:3001"
-   slack-app-service:
+    slack-app-service:
       loadBalancer:
         servers:
           - url: 'http://192.168.86.47:5000'
-    # homeassistant-ui:
-    #   loadBalancer:
-    #     servers:
-    #       - url: "http://192.168.86.51:8123"
 
-# -----------------------------
-# SERVERSTRANSPORTS
-# -----------------------------
-# This allows containers to run in HTTPS with self-signed certs behind Traefik:
   serversTransports:
     ignorecert:
       insecureSkipVerify: true
