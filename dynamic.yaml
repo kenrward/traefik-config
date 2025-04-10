@@ -51,8 +51,8 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
-    slack-app:
-      rule: "Host(`whichenv.kewar.org`)"
+   slack-app:
+      rule: "Host(`whichenv.kewar.org`)"  
       service: slack-app-service
       entryPoints:
         - websecure
