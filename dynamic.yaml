@@ -58,6 +58,13 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
+    slack-get-logs:
+      rule: "Host(`getlogs.kewar.org`)"
+      service: slack-get-logs
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
 
   middlewares:
     https-redirect:
@@ -102,6 +109,10 @@ http:
       loadBalancer:
         servers:
           - url: 'http://192.168.86.47:5000'
+    slack-get-logs:
+      loadBalancer:
+        servers:
+          - url: 'http://192.168.86.31:5000'
 
   serversTransports:
     ignorecert:
