@@ -121,6 +121,24 @@ services:
     networks:
       - web
 
+  # whichenv
+  whichenv:
+    container_name: whichenv
+    restart: always
+    build: /slackapp/.
+    ports:
+      - "5000:5000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whichenv-ui.rule=Host(`whichenv.kewar.org`)"
+      - "traefik.http.routers.whichenv-ui.entrypoints=websecure"
+      - "traefik.http.routers.whichenv-ui.tls=true"
+      - "traefik.http.routers.whichenv.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.whichenv.tls.domains[0].main=whichenv.kewar.org"
+      - "traefik.http.routers.whichenv.tls.domains[0].sans=whichenv.kewar.org"
+      - "traefik.http.services.whichenv.loadbalancer.server.port=5000"
+    networks:
+      - web
   # Home Assistant
   # homeassistant:
   #   image: homeassistant/home-assistant:0.113.2
