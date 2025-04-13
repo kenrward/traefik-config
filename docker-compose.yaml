@@ -125,7 +125,7 @@ services:
   whichenv:
     container_name: whichenv
     restart: always
-    build: /slackapp/
+    build: /root/traefik-config/slackapp/
     ports:
       - "5000:5000"
     labels:
