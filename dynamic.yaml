@@ -112,7 +112,7 @@ http:
     slack-get-logs:
       loadBalancer:
         servers:
-          - url: 'http://192.168.86.31:5000'
+          - url: 'http://192.168.86.51:5000'
 
   serversTransports:
     ignorecert:
