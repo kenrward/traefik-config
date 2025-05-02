@@ -108,7 +108,7 @@ http:
     slack-app-service:
       loadBalancer:
         servers:
-          - url: 'http://192.168.86.51:5000'
+          - url: 'http://192.168.86.47:5000'
     slack-get-logs:
       loadBalancer:
         servers:
