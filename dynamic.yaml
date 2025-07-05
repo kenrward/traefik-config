@@ -66,6 +66,14 @@ http:
       tls:
         certResolver: letsencrypt
 
+    trading-data-api:
+      rule: "Host(`tda.kewar.org`)"
+      service: trading-data-api
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+
   middlewares:
     https-redirect:
       redirectScheme:
@@ -113,6 +121,10 @@ http:
       loadBalancer:
         servers:
           - url: 'http://192.168.86.51:5001'
+    trading-data-api :
+      loadBalancer:
+        servers:
+          - url: 'http://192.168.86.60:5000'
 
   serversTransports:
     ignorecert:
