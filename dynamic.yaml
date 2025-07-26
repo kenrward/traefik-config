@@ -165,9 +165,12 @@ http:
         servers:
           - url: 'http://192.168.86.52:5003'
     mac-mini-ollama:
-      loadBalancer:
-        servers:
-          - url: 'http://192.168.86.67:11434'
+    loadBalancer:
+      servers:
+        - url: 'http://192.168.86.67:11434'
+      responseForwarding:
+        passHostHeader: true
+        readTimeout: 300s 
 
   serversTransports:
     ignorecert:
