@@ -93,6 +93,13 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
+    wg-admin:
+      rule: "Host(`wga.kewar.org`)"
+      service: wg-admin
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
     trading-news-api:
       rule: "Host(`tna.kewar.org`)"
       service: trading-news-api
@@ -168,6 +175,10 @@ http:
       loadBalancer:
         servers:
           - url: 'http://192.168.86.67:11434'
+    wg-admin:
+      loadBalancer:
+        servers:
+          - url: 'http://192.168.86.63:10086/#/'
 
   serversTransports:
     ignorecert:
