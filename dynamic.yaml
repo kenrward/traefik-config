@@ -178,7 +178,7 @@ http:
     wg-admin:
       loadBalancer:
         servers:
-          - url: 'http://192.168.86.63:10086/#/'
+          - url: 'http://192.168.86.36:10086/#/'
 
   serversTransports:
     ignorecert:
