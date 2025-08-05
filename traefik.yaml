@@ -15,7 +15,6 @@ certificatesResolvers:
       storage: "acme.json"
       dnsChallenge:
         provider: cloudflare
-  tailscale: {}
 log:
   level: DEBUG
 

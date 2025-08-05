@@ -16,20 +16,6 @@ http:
         - home-lan
       tls:
         certResolver: letsencrypt
-    proxmox-tailscale-router:
-      rule: "Host(`pve.ts.kewar.org`)"
-      entryPoints:
-        - websecure
-      service: proxmox-tailscale-service
-      tls:
-        certResolver: tailscale
-    octopi-router:
-      rule: "Host(`octopi.kewar.org`)"
-      entryPoints:
-        - websecure
-      service: octopi-service
-      tls:
-        certResolver: letsencrypt
     pihole-ui:
       rule: "Host(`pihole.kewar.org`)"
       service: pihole-ui
@@ -54,20 +40,6 @@ http:
     uptime-ui:
       rule: "Host(`uptime.kewar.org`)"
       service: uptime-ui
-      entryPoints:
-        - websecure
-      tls:
-        certResolver: letsencrypt
-    slack-app:
-      rule: "Host(`whichenv.kewar.org`)"
-      service: slack-app-service
-      entryPoints:
-        - websecure
-      tls:
-        certResolver: letsencrypt
-    slack-get-logs:
-      rule: "Host(`getlogs.kewar.org`)"
-      service: slack-get-logs
       entryPoints:
         - websecure
       tls:
@@ -134,16 +106,6 @@ http:
         serversTransport: "ignorecert"
         servers:
           - url: "https://192.168.86.21:8006"
-    proxmox-tailscale-service:
-      loadBalancer:
-        passHostHeader: true
-        serversTransport: "ignorecert"
-        servers:
-          - url: "https://pve.van-degree.ts.net:8006"
-    octopi-service:
-      loadBalancer:
-        servers:
-          - url: "http://192.168.86.35:80"
     pihole-ui:
       loadBalancer:
         servers:
@@ -160,14 +122,6 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.86.51:3001"
-    slack-app-service:
-      loadBalancer:
-        servers:
-          - url: 'http://192.168.86.47:5000'
-    slack-get-logs:
-      loadBalancer:
-        servers:
-          - url: 'http://192.168.86.51:5001'
     trading-data-api:
       loadBalancer:
         servers:
@@ -191,7 +145,7 @@ http:
     wg-admin:
       loadBalancer:
         servers:
-          - url: 'http://192.168.86.36:10086/#/'
+          - url: 'http://192.168.86.36:10086'
 
   serversTransports:
     ignorecert:
