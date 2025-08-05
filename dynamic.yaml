@@ -16,6 +16,13 @@ http:
         - home-lan
       tls:
         certResolver: letsencrypt
+    proxmox-tailscale-router:
+      rule: "Host(`pve.van-degree.ts.net`)"
+      entryPoints:
+        - websecure
+      service: proxmox-tailscale-service
+      tls:
+        certResolver: tailscale
     octopi-router:
       rule: "Host(`octopi.kewar.org`)"
       entryPoints:
@@ -127,6 +134,12 @@ http:
         serversTransport: "ignorecert"
         servers:
           - url: "https://192.168.86.21:8006"
+    proxmox-tailscale-service:
+      loadBalancer:
+        passHostHeader: true
+        serversTransport: "ignorecert"
+        servers:
+          - url: "https://pve.van-degree.ts.net:8006"
     octopi-service:
       loadBalancer:
         servers:
