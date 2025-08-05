@@ -17,7 +17,7 @@ http:
       tls:
         certResolver: letsencrypt
     proxmox-tailscale-router:
-      rule: "Host(`pve.van-degree.ts.net`)"
+      rule: "Host(`pve.ts.kewar.org`)"
       entryPoints:
         - websecure
       service: proxmox-tailscale-service
