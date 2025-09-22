@@ -23,6 +23,13 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
+    pihole2-ui:
+      rule: "Host(`pihole2.kewar.org`)"
+      service: pihole2-ui
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
     dozzle-ui:
       rule: "Host(`dozzle.kewar.org`)"
       service: dozzle-ui
@@ -110,6 +117,10 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.86.50:80/admin/"
+    pihole2-ui:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.86.27:80/admin/"
     dozzle-ui:
       loadBalancer:
         servers:
