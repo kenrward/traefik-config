@@ -44,13 +44,13 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
-    uptime-ui:
-      rule: "Host(`uptime.kewar.org`)"
-      service: uptime-ui
-      entryPoints:
-        - websecure
-      tls:
-        certResolver: letsencrypt
+    # uptime-ui:
+    #   rule: "Host(`uptime.kewar.org`)"
+    #   service: uptime-ui
+    #   entryPoints:
+    #     - websecure
+    #   tls:
+    #     certResolver: letsencrypt
     trading-data-api:
       rule: "Host(`tda.kewar.org`)"
       service: trading-data-api
@@ -129,10 +129,10 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.86.51:8089"
-    uptime-ui:
-      loadBalancer:
-        servers:
-          - url: "http://192.168.86.51:3001"
+    # uptime-ui:
+    #   loadBalancer:
+    #     servers:
+    #       - url: "http://192.168.86.51:3001"
     trading-data-api:
       loadBalancer:
         servers:
