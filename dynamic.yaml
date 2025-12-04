@@ -120,7 +120,7 @@ http:
     pihole2-ui:
       loadBalancer:
         servers:
-          - url: "http://192.168.86.78:249/admin/"
+          - url: "http://192.168.86.249:80/admin/"
     dozzle-ui:
       loadBalancer:
         servers:
