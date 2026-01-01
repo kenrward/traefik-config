@@ -93,6 +93,13 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
+    home-assistant:
+      rule: "Host(`ha.kewar.org`)"
+      service: home-assistant
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
 
   middlewares:
     https-redirect:
@@ -157,6 +164,10 @@ http:
       loadBalancer:
         servers:
           - url: 'http://192.168.86.36:10086'
+    home-assistant:
+      loadBalancer:
+        servers:
+          - url: 'http://192.168.86.57:8123'
 
   serversTransports:
     ignorecert:
