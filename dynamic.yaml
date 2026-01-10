@@ -1,3 +1,20 @@
+tcp:
+  routers:
+    mqtt-router:
+      rule: "HostSNI(`mqtt.kewar.org`)"
+      entryPoints:
+        - mqtt
+      service: mqtt-service
+      tls:
+        passthrough: false
+        certResolver: letsencrypt
+
+  services:
+    mqtt-service:
+      loadBalancer:
+        servers:
+          - address: "192.168.86.57:1883" # Update with your MQTT broker IP
+
 http:
   routers:
     traefik-dashboard:
