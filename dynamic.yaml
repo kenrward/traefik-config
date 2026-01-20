@@ -140,7 +140,7 @@ http:
     pihole-ui:
       loadBalancer:
         servers:
-          - url: "http://192.168.86.64:80"
+          - url: "http://192.168.86.64:8080"
     pihole2-ui:
       loadBalancer:
         servers:
