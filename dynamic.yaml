@@ -17,6 +17,13 @@ tcp:
 
 http:
   routers:
+    safe-harbor-audit:
+      rule: "Host(`safeharboraudit.com`)"
+      entryPoints:
+        - websecure
+      service: safe-harbor-audit
+      tls:
+        certResolver: letsencrypt
     traefik-dashboard:
       rule: "Host(`traefik.kewar.org`)"
       entryPoints:
@@ -131,6 +138,10 @@ http:
           - "192.168.86.0/24"
 
   services:
+    audit-lxc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.86.58:80"
     proxmox-service:
       loadBalancer:
         passHostHeader: true
