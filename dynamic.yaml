@@ -138,7 +138,7 @@ http:
           - "192.168.86.0/24"
 
   services:
-    audit-lxc:
+    safe-harbor-audit:
       loadBalancer:
         servers:
           - url: "http://192.168.86.58:80"
