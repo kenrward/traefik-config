@@ -22,6 +22,8 @@ http:
       entryPoints:
         - websecure
       service: safe-harbor-audit
+      middlewares:
+        - secure-headers
       tls:
         certResolver: letsencrypt
     traefik-dashboard:
@@ -126,6 +128,14 @@ http:
         certResolver: letsencrypt
 
   middlewares:
+    secure-headers:
+      headers:
+        sslRedirect: true
+        forceSTSHeader: true
+        stsSeconds: 31536000
+        contentTypeNosniff: true
+        browserXssFilter: true
+        customFrameOptionsValue: "SAMEORIGIN"
     https-redirect:
       redirectScheme:
         scheme: https
