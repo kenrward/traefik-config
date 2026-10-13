@@ -8,7 +8,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"  # Dashboard
     environment:
       - CF_API_EMAIL=kenrward@gmail.com
       - CF_DNS_API_TOKEN=${CF_API}
@@ -27,7 +26,7 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "8001:80/tcp"
+      - "127.0.0.1:8001:80/tcp"
     environment:
       TZ: 'America/Chicago'
       # WEBPASSWORD: 'set a secure password here or it will be random'
@@ -51,21 +50,33 @@ services:
     networks:
       - web
 
+  # Read-only, filtered Docker API for Dozzle (never published, internal network only)
+  socket-proxy:
+    image: tecnativa/docker-socket-proxy:latest
+    container_name: socket-proxy
+    restart: unless-stopped
+    environment:
+      CONTAINERS: 1
+      INFO: 1
+      POST: 0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - socket
+
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
     image: amir20/dozzle:latest
     container_name: dozzle
     restart: unless-stopped
-    ports:
-      - "8088:8080"
     environment:
       DOZZLE_LEVEL: info
       DOZZLE_TAILSIZE: 300
       DOZZLE_FILTER: "status=running"
       # DOZZLE_FILTER: "label=log_me" # limits logs displayed to containers with this label
-      # DOCKER_HOST: tcp://socket-proxy:2375 # enable when using socket proxy
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock # disable when using so
+      DOCKER_HOST: tcp://socket-proxy:2375
+    depends_on:
+      - socket-proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dozzle-ui.rule=Host(`dozzle.kewar.org`)"
@@ -77,6 +88,7 @@ services:
       - "traefik.http.services.dozzle.loadbalancer.server.port=8080"
     networks:
       - web
+      - socket
 
 
   # File Browser
@@ -84,10 +96,6 @@ services:
     image: filebrowser/filebrowser:latest
     container_name: filebrowser
     restart: unless-stopped
-    ports:
-      - "8089:80"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock # disable when using so
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.filebrowser-ui.rule=Host(`filebrowser.kewar.org`)"
@@ -171,4 +179,6 @@ services:
 networks:
   web:
     driver: bridge
+  socket:
+    internal: true
 

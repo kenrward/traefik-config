@@ -1,20 +1,3 @@
-tcp:
-  routers:
-    mqtt-router:
-      rule: "HostSNI(`mqtt.kewar.org`)"
-      entryPoints:
-        - mqtt
-      service: mqtt-service
-      tls:
-        passthrough: false
-        certResolver: letsencrypt
-
-  services:
-    mqtt-service:
-      loadBalancer:
-        servers:
-          - address: "192.168.86.57:1883" # Update with your MQTT broker IP
-
 http:
   routers:
     safe-harbor-audit:
@@ -31,6 +14,8 @@ http:
       entryPoints:
         - websecure
       service: api@internal
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
     proxmox-router:
@@ -47,6 +32,8 @@ http:
       service: pihole-ui
       entryPoints:
         - websecure
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
     pihole2-ui:
@@ -54,6 +41,8 @@ http:
       service: pihole2-ui
       entryPoints:
         - websecure
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
     dozzle-ui:
@@ -61,6 +50,8 @@ http:
       service: dozzle-ui
       entryPoints:
         - websecure
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
     filebrowser-ui:
@@ -68,6 +59,8 @@ http:
       service: filebrowser-ui
       entryPoints:
         - websecure
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
     # uptime-ui:
@@ -82,6 +75,8 @@ http:
       service: trading-data-api
       entryPoints:
         - websecure
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
     trading-ta-api:
@@ -89,6 +84,8 @@ http:
       service: trading-ta-api
       entryPoints:
         - websecure
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
     trading-options-api:
@@ -96,6 +93,8 @@ http:
       service: trading-options-api
       entryPoints:
         - websecure
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
     mac-mini-ollama:
@@ -103,6 +102,8 @@ http:
       service: mac-mini-ollama
       entryPoints:
         - websecure
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
     wg-admin:
@@ -110,6 +111,8 @@ http:
       service: wg-admin
       entryPoints:
         - websecure
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
     trading-news-api:
@@ -117,6 +120,8 @@ http:
       service: trading-news-api
       entryPoints:
         - websecure
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
     home-assistant:
@@ -124,6 +129,8 @@ http:
       service: home-assistant
       entryPoints:
         - websecure
+      middlewares:
+        - home-lan
       tls:
         certResolver: letsencrypt
 
@@ -169,11 +176,11 @@ http:
     dozzle-ui:
       loadBalancer:
         servers:
-          - url: "http://192.168.86.51:8088"
+          - url: "http://dozzle:8080"
     filebrowser-ui:
       loadBalancer:
         servers:
-          - url: "http://192.168.86.51:8089"
+          - url: "http://filebrowser:80"
     # uptime-ui:
     #   loadBalancer:
     #     servers:
