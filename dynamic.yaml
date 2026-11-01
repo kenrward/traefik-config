@@ -61,33 +61,6 @@ http:
     #     - websecure
     #   tls:
     #     certResolver: letsencrypt
-    trading-data-api:
-      rule: "Host(`tda.kewar.org`)"
-      service: trading-data-api
-      entryPoints:
-        - websecure
-      middlewares:
-        - home-lan
-      tls:
-        certResolver: letsencrypt
-    trading-ta-api:
-      rule: "Host(`tta.kewar.org`)"
-      service: trading-ta-api
-      entryPoints:
-        - websecure
-      middlewares:
-        - home-lan
-      tls:
-        certResolver: letsencrypt
-    trading-options-api:
-      rule: "Host(`toa.kewar.org`)"
-      service: trading-options-api
-      entryPoints:
-        - websecure
-      middlewares:
-        - home-lan
-      tls:
-        certResolver: letsencrypt
     mac-mini-ollama:
       rule: "Host(`mmo.kewar.org`)"
       service: mac-mini-ollama
@@ -100,15 +73,6 @@ http:
     wg-admin:
       rule: "Host(`wga.kewar.org`)"
       service: wg-admin
-      entryPoints:
-        - websecure
-      middlewares:
-        - home-lan
-      tls:
-        certResolver: letsencrypt
-    trading-news-api:
-      rule: "Host(`tna.kewar.org`)"
-      service: trading-news-api
       entryPoints:
         - websecure
       middlewares:
@@ -174,22 +138,6 @@ http:
     #   loadBalancer:
     #     servers:
     #       - url: "http://192.168.86.51:3001"
-    trading-data-api:
-      loadBalancer:
-        servers:
-          - url: 'http://192.168.86.60:5000'
-    trading-ta-api:
-      loadBalancer:
-        servers:
-          - url: 'http://192.168.86.61:5001'
-    trading-options-api:
-      loadBalancer:
-        servers:
-          - url: 'http://192.168.86.55:5002'
-    trading-news-api:
-      loadBalancer:
-        servers:
-          - url: 'http://192.168.86.52:5003'
     mac-mini-ollama:
       loadBalancer:
         servers:
