@@ -18,29 +18,20 @@ http:
         - home-lan
       tls:
         certResolver: letsencrypt
+    unifi-console:
+      rule: "Host(`unifi.kewar.org`)"
+      entryPoints:
+        - websecure
+      service: unifi-console
+      middlewares:
+        - home-lan
+      tls:
+        certResolver: letsencrypt
     proxmox-router:
       rule: "Host(`proxmox.kewar.org`)"
       entryPoints:
         - websecure
       service: proxmox-service
-      middlewares:
-        - home-lan
-      tls:
-        certResolver: letsencrypt
-    pihole-ui:
-      rule: "Host(`pihole.kewar.org`)"
-      service: pihole-ui
-      entryPoints:
-        - websecure
-      middlewares:
-        - home-lan
-      tls:
-        certResolver: letsencrypt
-    pihole2-ui:
-      rule: "Host(`pihole2.kewar.org`)"
-      service: pihole2-ui
-      entryPoints:
-        - websecure
       middlewares:
         - home-lan
       tls:
@@ -151,9 +142,8 @@ http:
       ipAllowList:
         sourceRange:
           - "127.0.0.1/32"
-          - "10.0.10.0/24"
-          - "100.16.152.139/32"
           - "192.168.86.0/24"
+          - "10.0.10.0/24"
 
   services:
     safe-harbor-audit:
@@ -166,14 +156,12 @@ http:
         serversTransport: "ignorecert"
         servers:
           - url: "https://192.168.86.21:8006"
-    pihole-ui:
+    unifi-console:
       loadBalancer:
+        passHostHeader: true
+        serversTransport: "ignorecert"
         servers:
-          - url: "http://192.168.86.64:8080"
-    pihole2-ui:
-      loadBalancer:
-        servers:
-          - url: "http://192.168.86.249:80/admin/"
+          - url: "https://192.168.86.1"
     dozzle-ui:
       loadBalancer:
         servers:
