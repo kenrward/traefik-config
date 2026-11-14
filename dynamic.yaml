@@ -95,6 +95,8 @@ http:
       service: ha-mcp
       entryPoints:
         - websecure
+      middlewares:
+        - mcp-allow
       tls:
         certResolver: letsencrypt
 
@@ -115,6 +117,14 @@ http:
       ipAllowList:
         sourceRange:
           - "127.0.0.1/32"
+          - "192.168.86.0/24"
+          - "10.0.10.0/24"
+    # HA-MCP: Anthropic's published outbound range (MCP tool calls) plus your own
+    # LAN, because the OAuth consent/login runs in your browser against this host.
+    mcp-allow:
+      ipAllowList:
+        sourceRange:
+          - "160.79.104.0/21"
           - "192.168.86.0/24"
           - "10.0.10.0/24"
 
