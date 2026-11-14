@@ -88,6 +88,15 @@ http:
         - home-lan
       tls:
         certResolver: letsencrypt
+    # Public on purpose (no home-lan): claude.ai connects from Anthropic's servers.
+    # Fronts only the HA-MCP server on :9584, not Home Assistant itself.
+    ha-mcp:
+      rule: "Host(`mcp.kewar.org`)"
+      service: ha-mcp
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
 
   middlewares:
     secure-headers:
@@ -150,6 +159,10 @@ http:
       loadBalancer:
         servers:
           - url: 'http://192.168.86.57:8123'
+    ha-mcp:
+      loadBalancer:
+        servers:
+          - url: 'http://192.168.86.57:9584'
 
   serversTransports:
     ignorecert:
