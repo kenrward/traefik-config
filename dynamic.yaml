@@ -132,7 +132,7 @@ http:
     safe-harbor-audit:
       loadBalancer:
         servers:
-          - url: "http://192.168.86.58:80"
+          - url: "http://192.168.86.116:80"
     proxmox-service:
       loadBalancer:
         passHostHeader: true
